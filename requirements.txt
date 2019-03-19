@@ -1,6 +1,6 @@
 scikit-learn
-tensorflow
-tensorlayer
+tensorflow==1.2
+tensorlayer==1.6.3
 numpy
 click
 tqdm
