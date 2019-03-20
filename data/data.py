@@ -19,7 +19,7 @@ limit = {
 
 UNK = 'unk'
 # VOCAB_SIZE = 10000
-VOCAB_SIZE = 3900
+VOCAB_SIZE = 6200
 
 def ddefault():
     return 1
