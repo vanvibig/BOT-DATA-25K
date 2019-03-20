@@ -20,8 +20,9 @@ sess_config = tf.ConfigProto(allow_soft_placement=True, log_device_placement=Fal
 @click.option('-n', '--num-epochs', default=50, help='Number of epochs for training',)
 @click.option('-lr', '--learning-rate', default=0.001, help='Learning rate to use when training model',)
 @click.option('-inf', '--inference-mode', is_flag=True, help='Flag for INFERENCE mode',)
+@click.option('-f', '--file', is_flag=True, help='Flag for input file test',)
 
-def train(data_corpus, batch_size, num_epochs, learning_rate, inference_mode):
+def train(data_corpus, batch_size, num_epochs, learning_rate, inference_mode, file):
 
     metadata, idx_q, idx_a = data.load_data(PATH='data/')
     (trainX, trainY), (testX, testY), (validX, validY) = data.split_dataset(idx_q, idx_a)
@@ -139,6 +140,18 @@ def train(data_corpus, batch_size, num_epochs, learning_rate, inference_mode):
                 break
             sentence = sentence + [w]
         return sentence
+
+    if file:
+        fx = open("output.txt", "w", encoding='utf-8', errors='ignore')
+        seeds = open('test_input.txt', encoding='utf-8', errors='ignore').read().split('\n')
+        print("Bat dau ghi file")
+        for seed in seeds:
+            fx.write('input: {}\n'.format(seed))
+            sentence = inference(seed)
+            kq = ' '.join(sentence)
+            fx.write('output: {}\n\n'.format(kq))
+        fx.close()
+        print("Ket thuc ghi file")
 
     if inference_mode:
         """
